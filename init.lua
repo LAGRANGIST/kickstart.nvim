@@ -709,6 +709,28 @@ require('lazy').setup({
         sqlls = {},
         pyright = {},
         rust_analyzer = {},
+        lua_ls = {
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
+            },
+            runtime = { version = 'LuaJIT' },
+            workspace = {
+              checkThirdParty = false,
+              library = vim.api.nvim_get_runtime_file('', true),
+            },
+            diagnostics = {
+              globals = { 'vim' },
+              disable = { 'missing-fields' },
+            },
+            format = {
+              enable = false,
+            },
+          },
+        },
+      }
+      }
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -717,22 +739,6 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
-        lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-      }
 
       -- Ensure the servers and tools above are installed
       --
@@ -943,7 +949,9 @@ require('lazy').setup({
 
   -- custom plugins
   require 'custom.plugins.neotree',
-  require 'custom.plugins.autocompletion'
+  require 'custom.plugins.autocompletion',
+  require 'custom.plugins.bufferline',
+  require 'custom.plugins.dashboard'
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
